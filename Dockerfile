@@ -2,9 +2,9 @@ FROM php:8.4-apache
 
 # Install ekstensi yang dibutuhkan Laravel.
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev zip unzip git libsqlite3-dev \
+    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev zip unzip git libsqlite3-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_sqlite gd \
+    && docker-php-ext-install pdo_sqlite pdo_mysql gd zip \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 
