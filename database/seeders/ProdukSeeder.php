@@ -16,7 +16,6 @@ class ProdukSeeder extends Seeder
             ['nama_produk' => 'Gorengan', 'harga' => 5000, 'stok' => 40, 'kategori' => 'Snack', 'gambar' => 'gorengan.jpg'],
             ['nama_produk' => 'Es Teh Manis', 'harga' => 5000, 'stok' => 50, 'kategori' => 'Minuman', 'gambar' => 'esteh.jpg'],
             ['nama_produk' => 'Es Jeruk Segar', 'harga' => 8000, 'stok' => 30, 'kategori' => 'Minuman', 'gambar' => 'es-jeruk.jpg'],
-            ['nama_produk' => 'Kopi Susu Gula Aren', 'harga' => 15000, 'stok' => 25, 'kategori' => 'Minuman', 'gambar' => null],
             ['nama_produk' => 'Pisang Goreng Cokelat', 'harga' => 12000, 'stok' => 22, 'kategori' => 'Snack', 'gambar' => 'pisang.jpeg'],
             ['nama_produk' => 'Seblak Komplit', 'harga' => 18000, 'stok' => 15, 'kategori' => 'Makanan', 'gambar' => 'seblak.jpg'],
             ['nama_produk' => 'Bakso Mercon', 'harga' => 25000, 'stok' => 12, 'kategori' => 'Makanan', 'gambar' => 'bakso.webp'],

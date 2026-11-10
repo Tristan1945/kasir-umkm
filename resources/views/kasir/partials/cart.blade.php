@@ -3,7 +3,7 @@
     <div class="p-4">
         @forelse ($cart as $id => $item)
             <div class="cart-item d-flex gap-2 align-items-center mb-3">
-                <div class="cart-thumb">@if (!empty($item['gambar']))<img src="{{ asset($item['gambar']) }}" alt="{{ $item['nama_produk'] }}">@else<i class="fa-solid fa-utensils"></i>@endif</div>
+                <div class="cart-thumb">@if (!empty($item['gambar']))<img src="{{ '/'.ltrim($item['gambar'], '/') }}" alt="{{ $item['nama_produk'] }}">@else<i class="fa-solid fa-utensils"></i>@endif</div>
                 <div class="flex-grow-1 min-w-0"><div class="fw-semibold text-truncate">{{ $item['nama_produk'] }}</div><small class="text-secondary">{{ $item['jumlah'] }} x Rp {{ number_format($item['harga'], 0, ',', '.') }}</small><strong class="d-block small mt-1">Rp {{ number_format($item['harga'] * $item['jumlah'], 0, ',', '.') }}</strong></div>
                 <form method="POST" action="{{ route('kasir.update', $id) }}" class="d-flex gap-1">@csrf<input type="number" name="jumlah" value="{{ $item['jumlah'] }}" min="1" class="form-control form-control-sm text-center cart-qty"><button class="btn btn-sm btn-light border" title="Simpan jumlah"><i class="fa-solid fa-check text-success"></i></button></form>
                 <form method="POST" action="{{ route('kasir.remove', $id) }}">@csrf<button class="btn btn-sm btn-link text-danger px-1" title="Hapus"><i class="fa-solid fa-trash-can"></i></button></form>

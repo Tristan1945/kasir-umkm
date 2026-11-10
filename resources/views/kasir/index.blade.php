@@ -30,10 +30,10 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 g-3" id="productGrid">
             @forelse ($produks as $produk)
                 <div class="col product-item" data-category="{{ $produk->kategori }}" data-name="{{ strtolower($produk->nama_produk) }}">
-                    <div class="card product-card h-100 overflow-hidden product-detail-trigger" role="button" tabindex="0" data-name="{{ $produk->nama_produk }}" data-category="{{ $produk->kategori }}" data-price="Rp {{ number_format($produk->harga, 0, ',', '.') }}" data-stock="{{ $produk->stok }}" data-image="{{ $produk->gambar ? asset($produk->gambar) : '' }}" data-action="{{ route('kasir.add', $produk->id) }}">
+                    <div class="card product-card h-100 overflow-hidden product-detail-trigger" role="button" tabindex="0" data-name="{{ $produk->nama_produk }}" data-category="{{ $produk->kategori }}" data-price="Rp {{ number_format($produk->harga, 0, ',', '.') }}" data-stock="{{ $produk->stok }}" data-image="{{ $produk->gambar ? '/'.ltrim($produk->gambar, '/') : '' }}" data-action="{{ route('kasir.add', $produk->id) }}">
                         <div class="product-image-wrap position-relative">
                             @if ($produk->gambar)
-                                <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="product-image" loading="lazy">
+                                <img src="{{ '/'.ltrim($produk->gambar, '/') }}" alt="{{ $produk->nama_produk }}" class="product-image" loading="lazy">
                             @else
                                 <div class="product-image product-placeholder"><i class="fa-solid {{ $produk->kategori === 'Minuman' ? 'fa-mug-hot' : ($produk->kategori === 'Snack' || $produk->kategori === 'Camilan' ? 'fa-cookie-bite' : 'fa-utensils') }}"></i></div>
                             @endif
@@ -134,7 +134,17 @@
     function openProductDetail(product) {
         const image = product.dataset.image;
         const categoryIcon = product.dataset.category === 'Minuman' ? 'fa-mug-hot' : (product.dataset.category === 'Snack' || product.dataset.category === 'Camilan' ? 'fa-cookie-bite' : 'fa-utensils');
-        detailImage.innerHTML = image ? `<img src="${image}" alt="${product.dataset.name}" class="w-100 h-100 object-fit-cover">` : `<i class="fa-solid ${categoryIcon}"></i>`;
+        if (image) {
+            const imageElement = document.createElement('img');
+            imageElement.src = image;
+            imageElement.alt = product.dataset.name;
+            imageElement.className = 'w-100 h-100 object-fit-cover';
+            detailImage.replaceChildren(imageElement);
+        } else {
+            const iconElement = document.createElement('i');
+            iconElement.className = `fa-solid ${categoryIcon}`;
+            detailImage.replaceChildren(iconElement);
+        }
         detailCategory.textContent = product.dataset.category;
         detailTitle.textContent = product.dataset.name;
         detailPrice.textContent = product.dataset.price;
